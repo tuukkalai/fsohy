@@ -1,0 +1,20 @@
+title Osa 0.6 Uusi muistiinpano (SPA)
+
+note left of selain
+käyttäjä painaa 'Save'
+JS:
+- lisää uuden muistiinpanon `notes` arrayn loppuun
+- redrawNotes renderöi `notes` arrayn muistiinpanot sivulle
+- sendToServer lähettää uuden muistiinpanon POST metodilla
+end note
+selain->palvelin: POST 
+note left of palvelin 
+HTTP POST https://fullstack-exampleapp.herokuapp.com/new_note_spa
+Request payload:  {"content":"Uusi SPA","date":"2020-01-14T07:19:17.886Z"}
+end note
+
+note over palvelin:
+tallennetaan uusi muistiinpano
+end note
+
+palvelin-->selain: Status 201 { message: "note created" }
