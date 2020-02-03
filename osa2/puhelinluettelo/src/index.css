@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Sigmar+One&display=swap');
+
+* {
+	box-sizing:  border-box;
+}
+  
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #bada55;
+  color: #222;
+  font-family: 'Open Sans', Arial, sans-serif;  
+	font-size: 1.1rem;
+  line-height: 1.5;
+}
+h1, h2, h3, h4 {
+  font-family: 'Sigmar One', Arial, cursive;  
+  font-weight: 400;
+}
+p {
+  font-size:0.375em;
+}
+button {
+  border: 2px solid #222;
+  background: #bada55;
+  padding: 5px 10px;
+  margin: 0 5px;
+}
+button:hover {
+  background: #222;
+  color: #bada55;
+  cursor: pointer;
+}
