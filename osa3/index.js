@@ -30,11 +30,17 @@ let persons = [
 ]
 
 app.get('/', (req, res) => {
-  res.send('<h1>Hello world!</h1>')
+  res.send(`<p>Phonebook has info for ${persons.length} people</p><p>${new Date}</p>`)
 })
 
 app.get('/api/persons', (req, res) => {
   res.json(persons)
+})
+
+app.get('/api/persons/:id', (req, res) => {
+  const id = Number(req.params.id)
+  const person = persons.find(p => p.id === id)
+  person !== undefined ? res.json(person) : res.send('Person was not found')
 })
 
 const PORT = 3001
