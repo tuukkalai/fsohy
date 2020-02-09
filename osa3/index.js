@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
+const cors = require('cors')
 
 /*const requestLogger = (request, response, next) => {
   console.log('Method:', request.method)
@@ -11,10 +12,12 @@ const morgan = require('morgan')
 }*/
 
 app.use(express.json())
+app.use(express.static('build'))
 //app.use(requestLogger)
 
 morgan.token('body', function (req, res) { return JSON.stringify(req.body) })
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
+app.use(cors())
 
 let persons = [
     {
@@ -84,7 +87,11 @@ app.get('/api/persons', (req, res) => {
 app.get('/api/persons/:id', (req, res) => {
   const id = Number(req.params.id)
   const person = persons.find(p => p.id === id)
-  person !== undefined ? res.json(person) : res.status(404).end()
+  if(person !== undefined){
+    res.json(person)
+  }else{
+    res.status(404).json({error: `Cannot find person with id ${id}`}).end()
+  }
 })
 
 // Persons: Delete
@@ -94,7 +101,7 @@ app.delete('/api/persons/:id', (req, res) => {
   res.status(204).end()
 })
 
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })

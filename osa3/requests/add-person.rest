@@ -1,7 +1,7 @@
-POST http://localhost:3001/api/persons
+POST https://fsohy-persons.herokuapp.com/api/persons
 Content-Type: application/json
 
 {
-  "name": "VSCode REST Morgan",
-  "number": "+12 3231 3231"
+  "name": "Backend Herokussa",
+  "number": "+12 3231 5212"
 }

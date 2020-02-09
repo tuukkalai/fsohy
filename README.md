@@ -10,3 +10,8 @@ Kurssin repositorio
 |Osa2|3.2.2020|
 |Osa3||
 |Osa4||
+
+## Osa3 tehtävät 3.9-3.11
+
+Puhelinluettelo-sovellus Herokussa: https://fsohy-persons.herokuapp.com/
+
