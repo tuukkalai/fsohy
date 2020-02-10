@@ -1,7 +1,7 @@
-POST https://fsohy-persons.herokuapp.com/api/persons
+POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-  "name": "Backend Herokussa",
-  "number": "+12 3231 5212"
+  "name": "Backend herokussa",
+  "number": "+12 3231 53"
 }

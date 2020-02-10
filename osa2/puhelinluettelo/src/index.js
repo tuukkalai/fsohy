@@ -43,9 +43,19 @@ const App = () => {
   const handleSubmit = (event) => {
     event.preventDefault()
     if(newName === ''){
-      alert('Field "Name" is required')
+      setErrorMessage([`Field "Name" is required`, true])
+      setTimeout(() => {
+        setErrorMessage(['', false])
+      }, 5000)
       return
     }
+    /*if(newNumber === ''){
+      setErrorMessage([`Field "Number" is required`, true])
+      setTimeout(() => {
+        setErrorMessage(['', false])
+      }, 5000)
+      return
+    }*/
     if(persons.some(p => p.name === newName)){
       const upPerson = persons.find(p => p.name === newName)
       if(window.confirm(`${upPerson.name} already added to phonebook, replace the old number with a new one?`)){
@@ -86,7 +96,7 @@ const App = () => {
         setNewNumber('')
       })
       .catch( error => {
-        setErrorMessage([`Something went wrong, person was not created`, true])
+        setErrorMessage([`${error.response.data.error}`, true])
         setTimeout(() => {
           setErrorMessage(['', false])
         }, 5000)
