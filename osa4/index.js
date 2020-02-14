@@ -1,3 +1,4 @@
+const config = require('./utils/config')
 const http = require('http')
 const express = require('express')
 const app = express()
@@ -5,9 +6,8 @@ const cors = require('cors')
 const mongoose = require('mongoose')
 const Blog = require('./models/blog')
 
-const mongoUrl = process.env.MONGODB_URI
 
-mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true})
   .then(console.log('Connected to mongo'))
   .catch(error => console.log('Error connecting to mongo' , error))
 
@@ -31,10 +31,9 @@ app.post('/api/blogs', (request, response) => {
     .then(result => {
       response.status(201).json(result)
     })
-    .catch(error => console.log('Error adding doc to blog', error))
+    .catch(error => console.log('Error adding blog to DB', error))
 })
 
-const PORT = 3003
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
+app.listen(config.PORT, () => {
+  console.log(`Server running on port ${config.PORT}`)
 })
