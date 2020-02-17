@@ -6,7 +6,22 @@ const helper = require('./test_helper')
 const Blog = require('../models/blog')
 const User = require('../models/user')
 
+var token = ''
+
 describe('Blogs initially saved', () => {
+  beforeAll(async () => {
+    await User.deleteMany({})
+    await api
+      .post('/api/users')
+      .send(helper.testUser)
+
+    const result = await api
+      .post('/api/login')
+      .send({ username: 'testaaja', password: 'Sikret' })
+
+    token = result.body.token
+  })
+
   beforeEach(async () => {
     await Blog.deleteMany({})
     await Blog.insertMany(helper.initialBlogs)
@@ -61,8 +76,6 @@ describe('Blogs initially saved', () => {
     test('fails with status 404 if blog does not exist', async () => {
       const validNonexistingId = await helper.nonExistingId()
 
-      console.log(validNonexistingId)
-
       await api
         .get(`/api/blogs/${validNonexistingId}`)
         .expect(404)
@@ -88,6 +101,7 @@ describe('Blogs initially saved', () => {
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlog)
         .expect(200)
         .expect('Content-Type', /application\/json/)
@@ -108,6 +122,7 @@ describe('Blogs initially saved', () => {
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlog)
         .expect(400)
 
@@ -124,6 +139,7 @@ describe('Blogs initially saved', () => {
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlog)
         .expect(400)
 
@@ -140,6 +156,7 @@ describe('Blogs initially saved', () => {
 
       await api
         .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
         .send(newBlog)
         .expect(200)
 
@@ -147,22 +164,70 @@ describe('Blogs initially saved', () => {
       const blog = blogsAtEnd.filter(b => b.title === 'Zero points')
       expect(blog[0].likes).toBe(0)
     })
+
+
+    test('adding blog fails if no token', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      const newBlog = {
+        title: 'No token',
+        author: 'N o token',
+        url: 'http://example.com/you-guessed-it-right--no-token'
+      }
+      const result = await api
+        .post('/api/blogs')
+        .send(newBlog)
+        .expect(401)
+        .expect('Content-Type', /application\/json/)
+
+      expect(result.body.error).toContain('invalid token')
+      const blogsAtEnd = await helper.blogsInDb()
+      expect(blogsAtStart.length).toBe(blogsAtEnd.length)
+    })
   })
 
   describe('Deletion of a blog', () => {
     test('succeeds with status 204 if id is valid', async () => {
+
+      const blog = {
+        title: 'Testaajan lisäämä blogi',
+        author: 'Tahvo the Testaaja',
+        url: 'http://example.com/testtesttest'
+      }
+
+      const newBlog = await api
+        .post('/api/blogs')
+        .set('Authorization', `Bearer ${token}`)
+        .send(blog)
+        .expect(200)
+
       const blogsAtStart = await helper.blogsInDb()
       await api
-        .delete(`/api/blogs/${blogsAtStart[0].id}`)
+        .delete(`/api/blogs/${newBlog.body.id}`)
+        .set('Authorization', `Bearer ${token}`)
         .expect(204)
 
       const blogsAtEnd = await helper.blogsInDb()
 
-      expect(blogsAtEnd.length).toBe(helper.initialBlogs.length - 1)
+      expect(blogsAtEnd.length).toBe(blogsAtStart.length - 1)
 
       const title = blogsAtEnd.map(r => r.title)
 
-      expect(title).not.toContain(blogsAtStart[0].title)
+      expect(title).not.toContain(newBlog.body.title)
+    })
+
+    test('Error if no valid token', async () => {
+      const blogsAtStart = await helper.blogsInDb()
+      await api
+        .delete(`/api/blogs/${blogsAtStart[0].id}`)
+        .expect(401)
+
+      const blogsAtEnd = await helper.blogsInDb()
+
+      expect(blogsAtStart.length).toBe(blogsAtEnd.length)
+
+      const title = blogsAtEnd.map(r => r.title)
+
+      expect(title).toContain(blogsAtStart[0].title)
     })
   })
 
@@ -249,7 +314,6 @@ describe('Blogs initially saved', () => {
       const usersAtEnd = await helper.usersInDb()
       expect(usersAtStart.length).toBe(usersAtEnd.length)
     })
-
   })
 })
 
