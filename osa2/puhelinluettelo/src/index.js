@@ -49,13 +49,6 @@ const App = () => {
       }, 5000)
       return
     }
-    /*if(newNumber === ''){
-      setErrorMessage([`Field "Number" is required`, true])
-      setTimeout(() => {
-        setErrorMessage(['', false])
-      }, 5000)
-      return
-    }*/
     if(persons.some(p => p.name === newName)){
       const upPerson = persons.find(p => p.name === newName)
       if(window.confirm(`${upPerson.name} already added to phonebook, replace the old number with a new one?`)){
