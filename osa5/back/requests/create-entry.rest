@@ -1,0 +1,10 @@
+POST http://localhost:3003/api/blogs/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InR1dWtrYWxhIiwiaWQiOiI2ZTRhOTMxZGRhOTA4YjcxYmY5M2ZmNWUiLCJpYXQiOjE1ODE5NTc3MTZ9.PldoB30NNJya6Vgq7zeAQ-ETY4UPFrw8nPHSHpDVjKo
+
+{
+  "title": "Req token middleware INVALID",
+  "author": "Laitinen, TMJ",
+  "url": "http://example.com/9",
+  "likes": 12
+}
