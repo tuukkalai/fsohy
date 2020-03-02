@@ -5,8 +5,14 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import App from './App'
 //import reducer from './reducers/anecdoteReducer'
+import anecdoteService from './services/anecdotes'
 
 import store from './store'
+import { initAnecdotes } from './reducers/anecdoteReducer'
+
+anecdoteService.getAll().then(notes =>
+  store.dispatch(initAnecdotes(notes))
+)
 
 ReactDOM.render(
   <Provider store={store}>
