@@ -39,15 +39,15 @@ const App = () => {
           <tbody>
             <tr>
               <td>good</td>
-              <td>{ store.getState().good }</td>
+              <td>{ good }</td>
             </tr>
             <tr>
               <td>neutral</td>
-              <td>{ store.getState().ok }</td>
+              <td>{ ok }</td>
             </tr>
             <tr>
               <td>bad</td>
-              <td>{ store.getState().bad }</td>
+              <td>{ bad }</td>
             </tr>
             <tr>
               <td>all</td>
