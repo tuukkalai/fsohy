@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { BrowserRouter, Route, Link, Switch, useParams } from 'react-router-dom'
+import { BrowserRouter, Route, Link, Switch, useParams, useHistory } from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -50,6 +50,8 @@ const CreateNew = (props) => {
   const [author, setAuthor] = useState('')
   const [info, setInfo] = useState('')
 
+  const history = useHistory()
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -59,6 +61,7 @@ const CreateNew = (props) => {
       info,
       votes: 0
     })
+    history.push('/')
   }
 
   return (
@@ -122,7 +125,7 @@ const App = () => {
     setNotification(`A new anecdote "${anecdote.content}" created!`)
     setTimeout(() => {
       setNotification('')
-    }, 2000)
+    }, 10000)
   }
 
   const anecdoteById = (id) =>
