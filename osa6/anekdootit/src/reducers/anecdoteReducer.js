@@ -15,6 +15,7 @@ const reducer = (state = [], action) => {
         a.id !== id ? a : newAnecdote
       )
     case 'NEW_ANECDOTE':
+      console.log(action.data)
       return [...state, action.data]
     case 'INIT_ANECDOTES':
       return action.data
@@ -35,7 +36,7 @@ export const createAnecdote = content => {
     const newAnecdote = await anecdoteService.createNew(content)
     dispatch({
       type: 'NEW_ANECDOTE',
-      data: content
+      data: newAnecdote
     })
   }
 }
