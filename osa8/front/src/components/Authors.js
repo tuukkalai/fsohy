@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { ALL_AUTHORS, EDIT_AUTHOR } from '../queries'
 import { useMutation } from '@apollo/client'
 
-const EditAuthor = () => {
+const EditAuthor = ({ authors }) => {
   const [ name, setName ] = useState('')
   const [ born, setBorn ] = useState('')
 
@@ -17,7 +17,6 @@ const EditAuthor = () => {
   const editAuthor = async (event) => {
     event.preventDefault()
     updateAuthor({ variables: { name, born }})
-    setName('')
     setBorn('')
   }
 
@@ -29,11 +28,10 @@ const EditAuthor = () => {
       <form onSubmit={editAuthor}>
         <div>
           name:
-          <input 
-            type='text'
-            value={name}
-            onChange={({target}) => setName(target.value)}
-          />
+          <select name='name' onChange={({target}) => setName(target.value)}>
+            <option disabled selected>Select author</option>
+            {authors.map(n => <option key={n.name} value={n.name}>{n.name}</option>)}
+          </select>
         </div>
         <div>
           born:
@@ -77,7 +75,7 @@ const Authors = ({ authors }) => {
           }
         </tbody>
       </table>
-      <EditAuthor />
+      <EditAuthor authors={authors} />
     </div>
   )
 }
