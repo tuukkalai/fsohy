@@ -79,7 +79,7 @@ const resolvers = {
         try {
           await author.save()
         } catch (e) {
-          throw new UserInputError(e.message, {
+          throw new UserInputError('Error while adding author', {
             invalidArgs: args
           })
         }
@@ -88,7 +88,7 @@ const resolvers = {
       try{
         await book.save()
       } catch (e) {
-        throw new UserInputError(e.message, {
+        throw new UserInputError('Error while adding book', {
           invalidArgs: args
         })
       }
@@ -104,7 +104,7 @@ const resolvers = {
          await Author.updateOne({ _id: author.id }, { born: args.setBornTo })
          return await Author.findById(author.id)
       } catch (e) {
-        throw new UserInputError(e.message, {
+        throw new UserInputError('Error while updating author', {
           invalidArgs: args
         })
       }
