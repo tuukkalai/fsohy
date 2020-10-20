@@ -93,7 +93,6 @@ const resolvers = {
     allAuthors: async () => await Author.find({})
   },
   Mutation: {
-<<<<<<< HEAD
     addBook: async (root, args) => {
       let author = await Author.findOne({ name: args.author})
       if ( !author ) {
@@ -105,11 +104,6 @@ const resolvers = {
             invalidArgs: args
           })
         }
-=======
-    addBook: (root, args) => {
-      if (!authors.find(a => a.name === args.author)) {
-        authors = authors.concat({ name: args.author, id: uuidv4(), born: null })
->>>>>>> 3c46c28114d8740ecb9966011402ee894acd7d36
       }
       const book = new Book({ ...args, author: author.id })
       try{
