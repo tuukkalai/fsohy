@@ -26,10 +26,10 @@ const typeDefs = gql`
 
   type Book {
     title: String!
-    published: Int
+    published: Int!
     author: Author!
+    genres: [String!]!
     id: ID!
-    genres: [String]
   }
 
   type User {
@@ -84,7 +84,8 @@ const resolvers = {
         return await Book.find({}).populate('author')
       }
       if(args.author){
-        return await Book.find({}).populate('author')
+        let author = await Author.findOne({ name: args.author })
+        return await Book.find({ author }).populate('author')
       }
       if(args.genre){
         return await Book.find({ genres: args.genre }).populate('author')
