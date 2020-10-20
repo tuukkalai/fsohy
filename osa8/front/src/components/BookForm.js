@@ -5,7 +5,7 @@ import { ALL_AUTHORS, ALL_BOOKS, CREATE_BOOK } from '../queries'
 const BookForm = () => {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-  const [year, setYear] = useState()
+  const [year, setYear] = useState('')
   const [genre, setGenre] = useState('')
   const [genres, setGenres] = useState([])
 
@@ -25,7 +25,11 @@ const BookForm = () => {
 
   const submit = async (event) => {
     event.preventDefault()
-    createBook({ variables: { title, author, year: parseInt(year), genres}})
+    createBook({ variables: { title, author, year: year, genres}})
+    setTitle('')
+    setAuthor('')
+    setYear('')
+    setGenres([])
   }
 
   const addGenre = (event) => {
@@ -33,6 +37,10 @@ const BookForm = () => {
     const newGenres = [...genres, genre]
     setGenres(newGenres)
     setGenre('')
+  }
+
+  const handleYear = (event) => {
+    setYear(parseInt(event.target.value))
   }
 
   return (
@@ -44,7 +52,7 @@ const BookForm = () => {
         <label htmlFor='author'>Author</label> 
         <input value={author} onChange={({target}) => setAuthor(target.value)} />
         <label htmlFor='published'>Published</label> 
-        <input type='number' value={year} onChange={({target}) => setYear(target.value)} />
+        <input type='number' value={year} onChange={handleYear} />
         <label htmlFor='genres'>Genres</label> 
         <input value={genre} onChange={({target}) => setGenre(target.value)} />
         <button onClick={addGenre}>add genre</button>
