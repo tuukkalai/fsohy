@@ -47,16 +47,26 @@ const BookForm = () => {
     <div>
       <h2>Add book</h2>
       <form onSubmit={submit}>
-        <label htmlFor='title'>Title</label> 
-        <input value={title} onChange={({target}) => setTitle(target.value)} />
-        <label htmlFor='author'>Author</label> 
-        <input value={author} onChange={({target}) => setAuthor(target.value)} />
-        <label htmlFor='published'>Published</label> 
-        <input type='number' value={year} onChange={handleYear} />
-        <label htmlFor='genres'>Genres</label> 
-        <input value={genre} onChange={({target}) => setGenre(target.value)} />
+        <div>
+          <label htmlFor='title'>Title</label> 
+          <input value={title} onChange={({target}) => setTitle(target.value)} />
+        </div>
+        <div>
+          <label htmlFor='author'>Author</label> 
+          <input value={author} onChange={({target}) => setAuthor(target.value)} />
+        </div>
+        <div>
+          <label htmlFor='published'>Published</label> 
+          <input type='number' value={year} onChange={handleYear} />
+        </div>
+        <div>
+          <label htmlFor='genres'>Genres</label> 
+          <input value={genre} onChange={({target}) => setGenre(target.value)} />
+        </div>
+        <div>
         <button onClick={addGenre}>add genre</button>
-        {genres.join(', ')}
+          {genres.join(', ')}
+        </div>
         <button type='submit'>Add book</button>
       </form>
     </div>

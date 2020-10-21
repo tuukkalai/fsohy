@@ -17,6 +17,7 @@ const EditAuthor = ({ authors }) => {
   const editAuthor = async (event) => {
     event.preventDefault()
     updateAuthor({ variables: { name, born }})
+    setName('')
     setBorn('')
   }
 
@@ -29,7 +30,7 @@ const EditAuthor = ({ authors }) => {
         <div>
           name:
           <select name='name' onChange={({target}) => setName(target.value)}>
-            <option disabled selected>Select author</option>
+            <option defaultValue disabled>Select author</option>
             {authors.map(n => <option key={n.name} value={n.name}>{n.name}</option>)}
           </select>
         </div>
@@ -47,7 +48,7 @@ const EditAuthor = ({ authors }) => {
   )
 }
 
-const Authors = ({ authors }) => {
+const Authors = ({ authors, token}) => {
   return(
     <div>
       <h2>Authors</h2>
@@ -75,7 +76,9 @@ const Authors = ({ authors }) => {
           }
         </tbody>
       </table>
-      <EditAuthor authors={authors} />
+      { token &&
+        <EditAuthor authors={authors} />
+      }
     </div>
   )
 }
