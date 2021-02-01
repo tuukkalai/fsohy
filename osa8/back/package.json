@@ -11,9 +11,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "apollo-server": "^2.11.0",
+    "apollo-server": "^2.18.2",
+    "dotenv": "^8.2.0",
     "graphql": "^14.6.0",
-    "uuid": "^7.0.2",
-    "nodemon": "^2.0.2"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.5",
+    "mongoose-unique-validator": "^2.0.3",
+    "nodemon": "^2.0.2",
+    "uuid": "^7.0.2"
   }
 }

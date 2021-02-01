@@ -43,7 +43,7 @@ const App = () => {
             </tr>
             <tr>
               <td>neutral</td>
-              <td>{ ok }</td>
+              <td>{ neutral }</td>
             </tr>
             <tr>
               <td>bad</td>
