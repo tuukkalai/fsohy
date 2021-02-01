@@ -4,7 +4,8 @@ import Authors from './components/Authors'
 import Books from './components/Books'
 import BookForm from './components/BookForm'
 import LoginForm from './components/LoginForm'
-import { ALL_AUTHORS, ALL_BOOKS } from './queries'
+import Recommended from './components/Recommended'
+import { ALL_AUTHORS, ALL_BOOKS, CURRENT_USER } from './queries'
 
 const App = () => {
   const [page, setPage] = useState('authors')
@@ -12,9 +13,10 @@ const App = () => {
   const [error, setError] = useState(null)
   const authors = useQuery(ALL_AUTHORS)
   const books = useQuery(ALL_BOOKS)
+  const user = useQuery(CURRENT_USER)
   const client = useApolloClient()
 
-  if (authors.loading || books.loading) {
+  if (authors.loading || books.loading || user.loading ) {
     return <div>loading...</div>
   }
 
@@ -39,6 +41,8 @@ const App = () => {
       return <Books books={books.data.allBooks} />
     } else if (page === 'loginForm') {
       return <LoginForm setToken={setToken} setError={notify} />
+    } else if (page === 'recommended') {
+      return <Recommended books={books} user={user} />
     } else {
       return <BookForm />
     }
@@ -56,6 +60,7 @@ const App = () => {
             <li><button onClick={() => setPage('books')}>Books</button></li>
           { token &&
             <>
+              <li><button onClick={() => setPage('recommended')}>Recommended</button></li>
               <li><button onClick={() => setPage('bookForm')}>Add book</button></li>
               <li><button onClick={ logout }>Logout</button></li>
             </>

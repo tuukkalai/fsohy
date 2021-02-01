@@ -48,7 +48,7 @@ const EditAuthor = ({ authors }) => {
   )
 }
 
-const Authors = ({ authors, token}) => {
+const Authors = ({ authors, token }) => {
   return(
     <div>
       <h2>Authors</h2>
