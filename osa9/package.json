@@ -1,16 +1,16 @@
 {
   "name": "osa9",
   "version": "1.0.0",
-  "description": "Fullstack Open Part 9 - TypeScript",
+  "description": "BMI and exercise calc",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "ts-node": "ts-node"
+    "ts-node": "ts-node",
+    "calculateBmi": "ts-node bmiCalculator.ts"
   },
   "author": "Tuukka Laitinen",
   "license": "MIT",
   "devDependencies": {
-    "@types/node": "^14.14.22",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3"
   }
