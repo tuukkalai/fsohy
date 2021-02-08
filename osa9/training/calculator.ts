@@ -1,4 +1,4 @@
-type Operation = 'multiply' | 'add' | 'divide';
+import { Operation } from './types';
 
 type Result = number;
 
@@ -14,7 +14,7 @@ const calculator = (a: number, b: number, op : Operation) : Result => {
     default:
       throw new Error('Operation is not multiply, add or divide!');
   }
-}
+};
 
 /*
 try {
@@ -24,4 +24,4 @@ try {
 }
 */
 
-export default calculator;
+export default { calculator };

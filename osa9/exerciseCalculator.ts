@@ -23,8 +23,8 @@ const calculateExercises = (training: Array<number>, target: number): Result => 
     ratingDescription,
     target,
     average
-  }
-}
+  };
+};
 
 // 9.2
 // console.log(calculateExercises([5, 0, 2, 1.5, 2, 2, 1], 3));
@@ -40,8 +40,8 @@ const parseArguments = (args: Array<string>): ExerciseValues => {
   if (args.length > 10) throw new Error('Too many arguments. One week of training data is maximum.');
 
   const numOfValues: number = args.length;
-  let arr: Array<number> = [];
-  for(let i: number = 2; i < numOfValues-1; i++){
+  const arr: Array<number> = [];
+  for(let i = 2; i < numOfValues-1; i++){
     if(!isNaN(Number(args[i]))){
       arr.push(Number(args[i]));
     } else {
@@ -51,12 +51,12 @@ const parseArguments = (args: Array<string>): ExerciseValues => {
   return {
     trainingData: arr,
     target: Number(args[numOfValues-1])
-  }
-}
+  };
+};
 
 try {
   const { trainingData, target } = parseArguments(process.argv);
   console.log(calculateExercises(trainingData, target));
 } catch (e) {
-  console.log('Error, something bad happened, message: ', e.message);
+  console.log('Error, something bad happened, message: ', e);
 }

@@ -5,7 +5,7 @@ interface bmiJson {
 }
 
 const calculateBmi = (height: number, weight: number): bmiJson => {
-  let desc: string = '';
+  let desc = '';
   const bmi: number = weight / ( (height/100) ** 2 );
   switch(true){
     case (bmi < 15):
@@ -33,15 +33,15 @@ const calculateBmi = (height: number, weight: number): bmiJson => {
       desc = 'Obese Class III (Very severely obese)';
       break;
     default:
-      desc = 'Malformatted parameters.'
+      desc = 'Malformatted parameters.';
       break;
   }
   return {
     weight,
     height,
     bmi: desc
-  }
-}
+  };
+};
 
 /*
 interface argValues {
@@ -57,10 +57,10 @@ const parseBmiArguments = (args: Array<string>): argValues => {
     console.log('CLI stuff!');
     if (args.length < 4) throw 'CLI: Not enough args';
     if (args.length > 5) throw 'CLI: Too many args';
-    if (isNaN(Number(args[2])) || isNaN(Number(args[3]))) throw 'Numbers as arguments, please.';
+    if (isNaN(Number(args[2])) || isNaN(Number(args[3]))) throw 'Numbers as arguments, please.';
     height = Number(args[2]);
     weight = Number(args[3]);
-  } else if (!isNaN(Number(args[0])) && !isNaN(Number(args[1]))) {
+  } else if (!isNaN(Number(args[0])) && !isNaN(Number(args[1]))) {
     console.log('WEB stuff!');
     height = Number(args[0]);
     weight = Number(args[1]);
