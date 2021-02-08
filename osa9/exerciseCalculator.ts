@@ -1,4 +1,4 @@
-interface Result { 
+interface ExerciseResult { 
   periodLength: number;
   trainingDays: number;
   success: boolean;
@@ -8,7 +8,7 @@ interface Result {
   average: number;
 }
 
-const calculateExercises = (training: Array<number>, target: number): Result => {
+const calculateExercises = (training: Array<number>, target: number): ExerciseResult => {
   const periodLength: number = training.length;
   const trainingDays: number = training.filter(n => n > 0).length;
   const average: number = training.reduce((a,b) => (a+b)) / periodLength;
@@ -23,8 +23,8 @@ const calculateExercises = (training: Array<number>, target: number): Result => 
     ratingDescription,
     target,
     average
-  }
-}
+  };
+};
 
 // 9.2
 // console.log(calculateExercises([5, 0, 2, 1.5, 2, 2, 1], 3));
@@ -35,13 +35,13 @@ interface ExerciseValues {
   target: number;
 }
 
-const parseArguments = (args: Array<string>): ExerciseValues => {
+const parseArgs = (args: Array<string>): ExerciseValues => {
   if (args.length < 4) throw new Error('Not enough arguments');
   if (args.length > 10) throw new Error('Too many arguments. One week of training data is maximum.');
 
   const numOfValues: number = args.length;
-  let arr: Array<number> = [];
-  for(let i: number = 2; i < numOfValues-1; i++){
+  const arr: Array<number> = [];
+  for(let i = 2; i < numOfValues-1; i++){
     if(!isNaN(Number(args[i]))){
       arr.push(Number(args[i]));
     } else {
@@ -51,12 +51,12 @@ const parseArguments = (args: Array<string>): ExerciseValues => {
   return {
     trainingData: arr,
     target: Number(args[numOfValues-1])
-  }
-}
+  };
+};
 
 try {
-  const { trainingData, target } = parseArguments(process.argv);
+  const { trainingData, target } = parseArgs(process.argv);
   console.log(calculateExercises(trainingData, target));
 } catch (e) {
-  console.log('Error, something bad happened, message: ', e.message);
+  console.log('Error, something bad happened, message: ', e);
 }
