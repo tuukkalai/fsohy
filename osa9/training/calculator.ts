@@ -1,4 +1,4 @@
-type Operation = 'multiply' | 'add' | 'divide';
+import { Operation } from './types';
 
 type Result = number;
 
@@ -16,8 +16,12 @@ const calculator = (a: number, b: number, op : Operation) : Result => {
   }
 };
 
+/*
 try {
   console.log(calculator(1, 5 , 'divide'));
 } catch (e) {
   console.log('Something went wrong, error message: ', e);
 }
+*/
+
+export default { calculator };
