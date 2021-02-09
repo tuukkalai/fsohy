@@ -1,10 +1,10 @@
 import express from 'express';
 import calculateBmi from './bmiCalculator';
-import calculateExercises, { parseInternetArguments } from './exerciseCalculator';
+import calculateExercises, { parseWebArguments } from './exerciseCalculator';
 
 interface ExerciseCalculatorPost {
-  daily_exercises: number;
-  target: number;
+  daily_exercises: string;
+  target: string;
 }
 
 const app = express();
@@ -25,10 +25,11 @@ app.get('/bmi', (req, res) => {
 
 app.post('/exercises', (req, res) => {
   const { daily_exercises, target } = req.body as ExerciseCalculatorPost;
+  console.log('daily_exercises', daily_exercises);
   if (!daily_exercises || !target)
     return res.status(400).json({ error: 'parameters missing' });
   try {
-    const info = parseInternetArguments([2,1,3,4,5,6,7]);
+    const info = parseWebArguments([daily_exercises, target]);
     const response = calculateExercises(info);
     return res.json(response);
   } catch {

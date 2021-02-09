@@ -15,10 +15,12 @@ interface ExerciseValues {
 }
 
 const calculateExercises = (training: ExerciseValues): ExerciseResult => {
-  const { target } = training;
-  const periodLength: number = training.trainingData.length-1;
-  const trainingDays: number = training.trainingData.filter(n => n > 0).length-1;
-  const average: number = training.trainingData.reduce((a,b) => (a+b)) / periodLength;
+  const { target, trainingData } = training;
+  console.log('target', target);
+  console.log('training data', trainingData);
+  const periodLength: number = trainingData.length;
+  const trainingDays: number = trainingData.filter(n => n > 0).length;
+  const average: number = trainingData.reduce((a,b) => (a+b)) / periodLength;
   const success: boolean = target <= average;
   const rating: number = 3 - ( target - Math.floor(average) );
   const ratingDescription: string = rating >= 3 ? 'Awesome!' : rating >= 2 ? 'Not too bad!' : 'Maybe next week is better';
@@ -36,17 +38,19 @@ const calculateExercises = (training: ExerciseValues): ExerciseResult => {
 // 9.2
 // console.log(calculateExercises([5, 0, 2, 1.5, 2, 2, 1], 3));
 
-export const parseInternetArguments = (args: Array<number>): ExerciseValues => {
+export const parseWebArguments = (args: Array<string>): ExerciseValues => {
   const parsedArgs = [];
-  for (let i = 1; i < args.length; i++) {
-    const arr = Number(args[i]);
-    if (isNaN(arr)) throw new Error('Non-numeric argument');
-    parsedArgs.push(arr);
+  for (let i = 0; i < args[0].length; i++) {
+    const el = Number(args[0][i]);
+    if (isNaN(el)) throw new Error('Non-numeric argument');
+    parsedArgs.push(el);
   }
+
+  if(isNaN(Number(args[1]))) throw new Error('Non-numeric target');
   
   return {
     trainingData: parsedArgs,
-    target: Number(args[parsedArgs.length-1])
+    target: Number(args[1])
   };
 };
 
