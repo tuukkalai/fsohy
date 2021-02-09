@@ -1,0 +1,1 @@
+export type Operation = 'multiply' | 'add' | 'divide';
