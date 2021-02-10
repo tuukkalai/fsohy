@@ -1,5 +1,9 @@
 import diaryData from '../../data/diaryentries';
-import { DiaryEntry, NonSensitiveDiaryEntry } from '../types';
+import { 
+  DiaryEntry,
+  NewDiaryEntry,
+  NonSensitiveDiaryEntry
+} from '../types';
 
 const diaries: Array<DiaryEntry> = diaryData;
 
@@ -8,12 +12,20 @@ const getEntries = (): Array<DiaryEntry> => {
 };
 
 const getNonSensitiveDiaryEntries = (): Array<NonSensitiveDiaryEntry> => {
-  return diaries.map(({id, date, weather, visibility}) => ({id, date, weather, visibility}));
+  return diaries.map(({id, date, weather, visibility}) => (
+      {id, date, weather, visibility}
+    )
+  );
 };
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-const addEntry = () => {
-  return [];
+const addEntry = (entry: NewDiaryEntry): DiaryEntry => {
+  const newDiaryEntry = {
+    id: Math.max(...diaries.map(d => d.id)) + 1,
+    ...entry
+  };
+
+  diaries.push(newDiaryEntry);
+  return newDiaryEntry;
 };
 
 export default {
