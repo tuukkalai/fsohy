@@ -16,3 +16,9 @@ export interface Diagnose {
   name: string;
   latin?: string;
 }
+
+export enum Gender {
+  Male = 'male',
+  Female = 'female',
+  Other = 'other'
+}
