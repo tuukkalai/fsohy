@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import express from 'express';
 import patientService from '../services/patientService';
 import toNewPatient from '../utils';
@@ -14,7 +16,7 @@ router.post('/', (req, res) => {
     const addedPatient = patientService.addPatient(newPatient);
     res.json(addedPatient);
   } catch (e) {
-    res.status(400).send(e);
+    res.status(400).json({ error: 'Something went wrong', message: e.message });
   }
 });
 

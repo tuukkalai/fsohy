@@ -3,8 +3,8 @@ content-type: application/json
 
 {
   "name": "Testi Tyyppi",
-  "dateOfBirth": "14-02-1991",
+  "dateOfBirth": "1991-02-14",
   "ssn": "140291-1123",
-  "gender": "Male",
+  "gender": "male",
   "occupation": "Student"
 }
