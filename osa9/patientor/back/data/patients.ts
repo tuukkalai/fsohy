@@ -1,14 +1,22 @@
 import { Patient } from '../src/types';
 import toNewPatient from '../src/utils';
 
-const patients: Array<Patient> = [
+const patients: Array<Omit<Patient, 'entries'>> = [
+  {
+      "id": "1",
+      "name": "Matias",
+      "dateOfBirth": "12-12-1990",
+      "ssn": "121290-1234",
+      "gender": "male",
+      "occupation": "Student",
+  },
   {
       "id": "d2773336-f723-11e9-8f0b-362b9e155667",
       "name": "John McClane",
       "dateOfBirth": "1986-07-09",
       "ssn": "090786-122X",
       "gender": "male",
-      "occupation": "New york city cop"
+      "occupation": "New york city cop",
   },
   {
       "id": "d2773598-f723-11e9-8f0b-362b9e155667",
@@ -16,7 +24,8 @@ const patients: Array<Patient> = [
       "dateOfBirth": "1979-01-30",
       "ssn": "300179-777A",
       "gender": "male",
-      "occupation": "Cop"
+      "occupation": "Cop",
+
   },
   {
       "id": "d27736ec-f723-11e9-8f0b-362b9e155667",
