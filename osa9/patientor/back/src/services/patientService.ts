@@ -1,4 +1,8 @@
-import uuid from 'uuid';
+// In some cases the following import does not work
+import { v4 as uuid } from 'uuid';
+// If it doesn't, try with the following
+// And change the newPatient id creation with uuid.v4()
+// import uuid from 'uuid';
 import patientData from '../../data/patients';
 import { Patient, PublicPatient, NewPatient } from '../types';
 
@@ -19,7 +23,7 @@ const getPatient = (id: string): Patient => {
 
 const addPatient = (patient: NewPatient): Patient => {
   const newPatient = {
-    id: uuid.v4(),
+    id: uuid(),
     ...patient
   };
   patients.push(newPatient);
