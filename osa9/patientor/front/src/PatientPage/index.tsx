@@ -4,6 +4,7 @@ import { Container, Icon } from "semantic-ui-react";
 import { updatePatient, useStateValue } from "../state";
 import { useParams } from "react-router-dom";
 import { Patient } from "../types";
+import { Entry } from "../../../back/src/types";
 import { apiBaseUrl } from "../constants";
 
 const PatientPage: React.FC = () => {
@@ -40,12 +41,32 @@ const PatientPage: React.FC = () => {
     }
   };
 
+  const printEntries = ( entries: Entry[] ) => {
+    if (entries.length < 1){
+      return <p>No entries found.</p>;
+    }
+    return (
+      <>
+        <h2>Entries</h2>
+        {entries.map(e => (
+          <div key={e.id} className="entry">
+            <p>{e.date} - {e.description}</p>
+            <ul>
+              {e.diagnosisCodes?.map(d => <li key={d}>{d}</li>)}
+            </ul>
+          </div>
+        ))}
+      </>
+    );
+  };
+
   return (
     <div className="App">
       <Container textAlign="left">
         <h3>{patient.name} {printIcon()}</h3>
         <p>ssn: {patient.ssn}</p>
         <p>occupation: {patient.occupation}</p>
+        {patient.entries && printEntries(patient.entries)} 
       </Container>
     </div>
   );
