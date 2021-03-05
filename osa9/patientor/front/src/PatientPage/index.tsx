@@ -10,7 +10,7 @@ const PatientPage: React.FC = () => {
   const [{ patients }, dispatch] = useStateValue();
   const { id } = useParams<{ id: string }>();
   const patient = patients[id];
-
+  
   React.useEffect(() => {
     if (patient && !patient.ssn) {
       const getPatient = async () => {
