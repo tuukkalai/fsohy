@@ -1,10 +1,10 @@
 import React from "react";
 import axios from "axios";
-import { Container, Icon } from "semantic-ui-react";
+import { Container, Card, Icon } from "semantic-ui-react";
 import { updatePatient, useStateValue } from "../state";
 import { useParams } from "react-router-dom";
-import { Patient } from "../types";
-import { Entry } from "../../../back/src/types";
+import { Patient, assertNever } from "../types";
+import { Entry, HospitalEntry, HealthCheckEntry, OccupationalHealthcareEntry } from "../../../back/src/types";
 import { apiBaseUrl } from "../constants";
 
 const PatientPage: React.FC = () => {
@@ -41,6 +41,48 @@ const PatientPage: React.FC = () => {
     }
   };
 
+  const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
+    switch(entry.type){
+      case 'Hospital':
+        return <HospitalEntry entry={entry} />;
+      case 'OccupationalHealthcare':
+        return <OccupationalHealthcareEntry entry={entry} />;
+      case 'HealthCheck':
+        return <HealthCheckEntry entry={entry} />;
+      default:
+        return assertNever(entry);
+    }
+  };
+
+  const HospitalEntry: React.FC<{ entry: HospitalEntry }> = ({ entry }) => {
+    return (
+      <Card>
+        <Card.Content header={entry.date} />
+        <Card.Content description={entry.description} />
+      </Card>
+    );
+  }
+
+  const OccupationalHealthcareEntry: React.FC<{ entry: OccupationalHealthcareEntry }> = ({ entry }) => {
+    return (
+      <Card>
+        <Card.Content>
+          <Card.Header>
+            {entry.date}
+            <Icon name='doctor' size='large' />
+            {entry.employerName}
+          </Card.Header>
+        </Card.Content>
+        <Card.Content description={entry.description} />
+        <Card.Content>{entry.sickLeave}</Card.Content>
+      </Card>
+    );
+  }
+  
+  const HealthCheckEntry: React.FC<{ entry: HealthCheckEntry }> = ({ entry }) => {
+    return <h4>{entry.description}</h4>;
+  }
+
   const printEntries = ( entries: Entry[] ) => {
     if (entries.length < 1){
       return <p>No entries found.</p>;
@@ -49,12 +91,7 @@ const PatientPage: React.FC = () => {
       <>
         <h2>Entries</h2>
         {entries.map(e => (
-          <div key={e.id} className="entry">
-            <p>{e.date} - {e.description}</p>
-            <ul>
-              {e.diagnosisCodes?.map(d => <li key={d}>{d}</li>)}
-            </ul>
-          </div>
+          <EntryDetails entry={e} />
         ))}
       </>
     );
