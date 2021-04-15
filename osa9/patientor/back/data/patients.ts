@@ -110,6 +110,24 @@ const patients: Patient[] = [
       },
     ],
   },
+  {
+    id: 'd4773c6e-f423-13e9-840b-362b9e155664',
+    name: 'Tuukka Laitinen',
+    dateOfBirth: '1989-04-09',
+    ssn: '090471-8890',
+    gender: Gender.Male,
+    occupation: 'Digital evangelist',
+    entries: [
+      {
+        id: '54a8746e-34c4-4cf4-bf72-bfecd039be9a',
+        date: '2019-05-01',
+        specialist: 'Dr Byte House',
+        type: 'HealthCheck',
+        description: 'Digital overdose, very bytestatic. Otherwise healthy.',
+        healthCheckRating: 0,
+      },
+    ],
+  },
 ];
 
 export default patients;
