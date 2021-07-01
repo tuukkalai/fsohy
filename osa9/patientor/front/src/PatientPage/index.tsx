@@ -61,7 +61,7 @@ const PatientPage: React.FC = () => {
         <Card.Content description={entry.description} />
       </Card>
     );
-  }
+  };
 
   const OccupationalHealthcareEntry: React.FC<{ entry: OccupationalHealthcareEntry }> = ({ entry }) => {
     return (
@@ -74,14 +74,20 @@ const PatientPage: React.FC = () => {
           </Card.Header>
         </Card.Content>
         <Card.Content description={entry.description} />
-        <Card.Content>{entry.sickLeave}</Card.Content>
+        <Card.Content>{entry.sickLeave?.startDate} &mdash; {entry.sickLeave?.endDate}</Card.Content>
       </Card>
     );
-  }
+  };
   
   const HealthCheckEntry: React.FC<{ entry: HealthCheckEntry }> = ({ entry }) => {
-    return <h4>{entry.description}</h4>;
-  }
+    return (
+      <Card>
+        <Card.Content header={entry.date} />
+        <Card.Content description={entry.description} />
+        <Card.Content description={entry.healthCheckRating === 0 ? '💚' : '💛'} />
+      </Card>
+    );
+  };
 
   const printEntries = ( entries: Entry[] ) => {
     if (entries.length < 1){
@@ -91,7 +97,7 @@ const PatientPage: React.FC = () => {
       <>
         <h2>Entries</h2>
         {entries.map(e => (
-          <EntryDetails entry={e} />
+          <EntryDetails key={e.id} entry={e} />
         ))}
       </>
     );
