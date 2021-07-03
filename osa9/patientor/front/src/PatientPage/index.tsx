@@ -4,7 +4,7 @@ import { Container, Card, Icon } from "semantic-ui-react";
 import { updatePatient, useStateValue } from "../state";
 import { useParams } from "react-router-dom";
 import { Patient, assertNever } from "../types";
-import { Entry, HospitalEntry, HealthCheckEntry, OccupationalHealthcareEntry } from "../../../back/src/types";
+import { Entry, HospitalEntry, OccupationalHealthcareEntry, HealthCheckEntry } from "../../../back/src/types";
 import { apiBaseUrl } from "../constants";
 
 const PatientPage: React.FC = () => {
