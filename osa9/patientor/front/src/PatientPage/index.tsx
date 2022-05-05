@@ -19,11 +19,7 @@ const PatientPage: React.FC = () => {
           const { data: newPatient } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
           dispatch(updatePatient(newPatient));
         } catch (error) {
-          let errorMessage = 'Something went wrong';
-          if (error instanceof Error) {
-            errorMessage += ': ' + error.message;
-          }
-          throw new Error(errorMessage);
+          throw new Error('Something went wrong ' + error.message);
         }
       };
       getPatient();

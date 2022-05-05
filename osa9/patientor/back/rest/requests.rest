@@ -13,3 +13,49 @@ Content-type: application/json
 
 GET http://localhost:3001/api/patients HTTP/1.1
 Content-Type: application/json
+
+###
+
+POST http://localhost:3001/api/patients/d4773c6e-f423-13e9-840b-362b9e155664/entries HTTP/1.1
+Content-type: application/json
+
+{
+  "specialist": "MD Läkare",
+  "diagnosisCodes": ["J10.1", "S03.5"],
+  "type": "OccupationalHealthcare",
+  "employerName": "Boston Consulting Group",
+  "description": "Patient taken in with intensifying difficulty to breathe. Strain in upper neck caused by hanging upside down as a self-care.",
+  "sickLeave": {
+    "startDate": "2022-03-05",
+    "endDate": "2022-03-25"
+  }
+}
+
+###
+
+POST http://localhost:3001/api/patients/d4773c6e-f423-13e9-840b-362b9e155664/entries HTTP/1.1
+Content-type: application/json
+
+{
+  "specialist": "MD House",
+  "type": "HealthCheck",
+  "description": "Yearly control visit. Cholesterol levels back to normal.",
+  "healthCheckRating": 0
+}
+
+###
+
+POST http://localhost:3001/api/patients/d4773c6e-f423-13e9-840b-362b9e155664/entries HTTP/1.1
+Content-type: application/json
+
+{
+  "type": "Hospital",
+  "specialist": "MD House",
+  "diagnosisCodes": ["H54.7", "Z74.3"],
+  "description":
+    "Sudden loss of visual. Most likely due to 10h Rick Astley's \"Never Gonna Give You Up\" -video.",
+  "discharge": {
+    "date": "2022-02-16",
+    "criteria": "Vision gained."
+  }
+}
