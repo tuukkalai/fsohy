@@ -18,13 +18,17 @@ const PatientPage: React.FC = () => {
         try {
           const { data: newPatient } = await axios.get<Patient>(`${apiBaseUrl}/patients/${id}`);
           dispatch(updatePatient(newPatient));
-        } catch (e) {
-          throw new Error('Something went wrong ' + e.message);
+        } catch (error) {
+          let errorMessage = 'Something went wrong';
+          if (error instanceof Error) {
+            errorMessage += ': ' + error.message;
+          }
+          throw new Error(errorMessage);
         }
       };
       getPatient();
     }
-  }, [patient, dispatch]);
+  }, [id, patient, dispatch]);
 
   if (!patient) {
     return <div>Loading patient...</div>;
@@ -44,47 +48,63 @@ const PatientPage: React.FC = () => {
   const EntryDetails: React.FC<{ entry: Entry }> = ({ entry }) => {
     switch(entry.type){
       case 'Hospital':
-        return <HospitalEntry entry={entry} />;
+        return <HospitalEntryDetails entry={entry} />;
       case 'OccupationalHealthcare':
-        return <OccupationalHealthcareEntry entry={entry} />;
+        return <OccupationalHealthcareEntryDetails entry={entry} />;
       case 'HealthCheck':
-        return <HealthCheckEntry entry={entry} />;
+        return <HealthCheckEntryDetails entry={entry} />;
       default:
         return assertNever(entry);
     }
   };
 
-  const HospitalEntry: React.FC<{ entry: HospitalEntry }> = ({ entry }) => {
+  const HospitalEntryDetails: React.FC<{ entry: HospitalEntry }> = ({ entry }) => {
     return (
-      <Card>
-        <Card.Content header={entry.date} />
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>
+            {entry.date}
+            {' '}
+            <Icon color='red' name='hospital symbol' />
+          </Card.Header>
+        </Card.Content>
         <Card.Content description={entry.description} />
+        <Card.Content description={'Diagnosed by ' + entry.specialist} />
       </Card>
     );
   };
 
-  const OccupationalHealthcareEntry: React.FC<{ entry: OccupationalHealthcareEntry }> = ({ entry }) => {
+  const OccupationalHealthcareEntryDetails: React.FC<{ entry: OccupationalHealthcareEntry }> = ({ entry }) => {
     return (
-      <Card>
+      <Card fluid>
         <Card.Content>
           <Card.Header>
             {entry.date}
-            <Icon name='doctor' size='large' />
+            {' '}
+            <Icon name='briefcase' />
             {entry.employerName}
           </Card.Header>
         </Card.Content>
         <Card.Content description={entry.description} />
-        <Card.Content>{entry.sickLeave?.startDate} &mdash; {entry.sickLeave?.endDate}</Card.Content>
+        {(entry.sickLeave) && <Card.Content>{entry.sickLeave?.startDate} &mdash; {entry.sickLeave?.endDate}</Card.Content>}
+        <Card.Content description={'Diagnosed by ' + entry.specialist} />
       </Card>
     );
   };
   
-  const HealthCheckEntry: React.FC<{ entry: HealthCheckEntry }> = ({ entry }) => {
+  const HealthCheckEntryDetails: React.FC<{ entry: HealthCheckEntry }> = ({ entry }) => {
     return (
-      <Card>
-        <Card.Content header={entry.date} />
+      <Card fluid>
+        <Card.Content>
+          <Card.Header>
+            {entry.date}
+            {' '}
+            <Icon name='calendar check outline' />
+          </Card.Header>
+        </Card.Content>
         <Card.Content description={entry.description} />
         <Card.Content description={entry.healthCheckRating === 0 ? '💚' : '💛'} />
+        <Card.Content description={'Diagnosed by ' + entry.specialist} />
       </Card>
     );
   };

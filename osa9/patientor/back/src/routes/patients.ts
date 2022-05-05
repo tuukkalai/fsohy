@@ -14,8 +14,12 @@ router.get('/:id', (req, res) => {
   try {
     const patient = patientService.getPatient(req.params.id);
     res.send(patient);
-  } catch (e) {
-    res.status(404).json({ error: 'Patient not found', message: e.message });
+  } catch (error: unknown) {
+    let errorMessage = 'Something went wrong';
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    res.status(404).json({ error: 'Patient not found', message: errorMessage });
   }
 });
 
@@ -24,8 +28,12 @@ router.post('/', (req, res) => {
     const newPatient = toNewPatient(req.body);
     const addedPatient = patientService.addPatient(newPatient);
     res.json(addedPatient);
-  } catch (e) {
-    res.status(400).json({ error: 'Something went wrong', message: e.message });
+  } catch (error: unknown) {
+    let errorMessage = 'Something went wrong'
+    if (error instanceof Error) {
+      errorMessage = error.message;
+    }
+    res.status(400).json({ error: 'Something went wrong', message: errorMessage });
   }
 });
 
