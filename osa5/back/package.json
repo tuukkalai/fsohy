@@ -15,8 +15,8 @@
   "license": "ISC",
   "devDependencies": {
     "cross-env": "^7.0.0",
-    "eslint": "^6.8.0",
-    "jest": "^25.1.0",
+    "eslint": "^8.8.0",
+    "jest": "^27.5.1",
     "nodemon": "^2.0.2",
     "supertest": "^4.0.2"
   },
